@@ -1,4 +1,4 @@
-COM3505 Assignment Repository
+TV B Gone
 ===
 
 This repository:
