@@ -1,0 +1,66 @@
+My Project Documentation
+===
+
+COM3505: The Internet of Things 2nd Assignment
+
+Team Members:
+·        Charles Thomas Mill 
+·        Hyun Han
+
+
+TASK: TV-B-Gone.
+
+
+DESIGN:
+This project is making a on/off button for a tv.
+Attach IO expander board and LIPO battery to esp 32 feather
+Attach the IR Sensor on the expander board
+Use a tv remote control to send IR signal to the sensor
+Get the signal and turned it to hexadecimal so we can put it in our code to send the signal later.
+Make a square button in the center of the screen to indicate the on/off button
+By using if statement send the IR signal whenever the button is clicked
+Change the color of the button when clicked to show that red is to off the tv and green is to on the tv.
+Make little vibration whenever the button is clicked.
+Keep activating the button when we are holding the button
+Display the button count on the top
+Voice recognition to on/off tv
+
+
+IMPLEMENTATION:
+We have modified TouchPaint.ino file to make a button for our project. We removed all the color boxes on the bottom of the screen and white border except one green square box. Then we move the green button to the middle of the screen and sized it up a bit to show it clearer.  Using if statement, we tried to make the button send the IR signal when the touched coordinate is inside the green box. (A Panasonic Tv remote was the first device tested on the IR receiver.) There was a problem to get the right IR signal as the receiver were not accurate to pick up the right signal. After that we tried to change the color of the button whenever you click it, so it looks like green is for turning on the tv and red is for turning it off. However when we run the program, the button kept changing the color between red and green. It was because the device save the touched coordinate so before you click outside the button the button will keep changing it’s color since the device assume I am clicking the button. So i added an extra condition which can check the screen is being touched or not. Moreover, we made an if condition of a certain pressure that the button can work. Finally, we added some vibration whenever the button is clicked. 
+
+We tried to do some voice recognition but suddenly our sketch showed some errors on some files in libraries that we have never touched as seen below:
+
+<img src="https://github.com/UniSheffieldInternetOfThings/com3505-labs-2018-hyunhan/blob/master/MyProjectThing/48386749_350086185783094_8040013915792343040_n%20(1).jpg" alt="drawing" width="600"/>
+And then we tried to fix it, but then the error has been changed to an another error message as seen below:
+<img src="https://github.com/UniSheffieldInternetOfThings/com3505-labs-2018-hyunhan/blob/master/MyProjectThing/pic2.jpg.jpg" alt="drawing" width="600"/>
+
+
+Due to this issue, there was no time for developing voice recognition nor testing our code.
+
+
+SECURITY: Each tv has its own IR signal, so it is relatively secure. If there is a program to recognise a certain person’s voice, the tv remote can be activated only with the voice when there is voice recognition embedded in the device.
+
+BATTERY POWER:
+At the moment, we can’t burn any sketches! So we could not check.
+
+
+TESTING:
+We used two unPhone(s); one for send and the other one for receiver.
+We have tested to see through the serial monitor that it sends a IR signal whenever it clicks the button on the screen.
+Below is the image proof(well currently can’t run any sketches so cannot get any images):
+
+This is the picture of our final design as shown below:
+<img src="https://github.com/UniSheffieldInternetOfThings/com3505-labs-2018-hyunhan/blob/master/MyProjectThing/demo.jpg" alt="drawing" width="600"/>
+
+
+CONSTRAINTS:
+-The TSOP4838 photoreceiver device picked up a lot of random codes. 
+-The battery makes problem sometimes so we had to disconnect the battery and burn the sketch
+-Takes 10 minutes to burn one sketches, which lowers the working performance.
+-IR sender is only possible for 10 cm which is there is no point of using this device.
+-IR sender is available only for 10cm, which is hard to understand the real point of using the device in real life.
+
+
+
+

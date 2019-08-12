@@ -1,0 +1,53 @@
+Exercise 10: OTA update via GitHub
+===
+
+Write documentation of your design for the OTA sketch here, and subsequently
+document your implementation.
+
+COM3505: The Internet of Things.
+ASSIGNMENT.
+Team Members:
+•	Charles Thomas Mill 
+•	Hyun Han
+TASK:
+Design and implement an Over The Air (OTA) sketch that checks the university cloud server for a firmware update, then pulls file from directory in GitHub repository. IOT device provisioning.
+TEAM CODE:
+1. Pseudocode for Joining ‘uos-other’ network:
+Call WIFI.begin to init current wifi lib’s network settings & give status. Supply name of network (uos-other) & WPA encrypted password (shefotherkey05).
+While (not assigned WL_CONNECTED)
+	Display connecting status
+Display connected status
+
+2. Pseudocode for main OTA update logic:
+Call doCloudGet. Supply GitHub ID & bin file name  do HTTP GET for .bin file. This bin file number should be same as ‘highestAvailableVersion’ which is the number in the file “version”.
+If (response code correct (received, understood, processed=200) & file size correct (10000 bytes)) then,
+	Call Update.begin. Begin update, Supply file size as arg.
+Call Update.writestream. Supply stream as arg, using HTTPClient’s getStream().
+	If (Update finished (Update.finished  return true) then,
+		Current version should = ‘highestAvailableVersion’
+		Call ESP.restart to reboot device with new firmware version.
+	Else 
+		Return update error.
+Else
+	Return respective error. (incorrect file size &/or cannot find file)
+	
+EXTRA FEATURES:
+Button.
+Our first attempt at modifying the basic working implementation was a button that when pressed would initiate the update. This was modelled after the lab exercises, using a while loop in the setup method. However, when testing the button, the loop method would fail to activate   Could not debug, ran out of time.
+Light.
+We also wired up a single green external led to light up (HIGH) if the update was successful (Pic. 1). We set up the GPIO pin, declared bool var update. If program reached Update.finshed then conditional statement in loop would trigger green light as HIGH.  We successfully tested the circuitry using a separate simple light sketch. However, somehow the program did not hit if condition in the loop method    Could not debug, ran out of time.
+
+   
+
+
+
+
+
+
+(Pic. 1)
+There is also evidence of both attempts in the git repositories.
+
+SECURITY:
+The Button was our first idea as a modification as we felt it could also behave a security measure by displaying the update request and prompting a user for permission. 
+
+
